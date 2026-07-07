@@ -5,6 +5,8 @@
 Dash in python?
 + https://dash.plotly.com/interactive-graphing#:~:text=of%20Dash%20Enterprise.-,Update%20Graphs%20on%20Hover,-Let%27s%20update%20our
 
++ https://towardsdatascience.com/the-battle-of-interactive-geographic-visualization-part-5-folium-cc2213d29a7/
++ 
 Basically the flow is: 
 1. type in zip code (this gives multiple options)
 	1. district one -- click on and gives fun facts
