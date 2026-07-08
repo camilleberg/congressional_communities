@@ -39,14 +39,12 @@
             "id": "8fb1d9424bf004c7",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "pdf",
               "state": {
-                "file": "Workflow Resources.md",
-                "mode": "source",
-                "source": false
+                "file": "The Best Python Dashboard Tools_ Comparative Analysis With Practical Examples - Freedium.pdf"
               },
-              "icon": "lucide-file",
-              "title": "Workflow Resources"
+              "icon": "lucide-file-text",
+              "title": "The Best Python Dashboard Tools_ Comparative Analysis With Practical Examples - Freedium"
             }
           }
         ],
@@ -139,7 +137,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Workflow Resources.md",
+                "file": "The Best Python Dashboard Tools_ Comparative Analysis With Practical Examples - Freedium.pdf",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -149,7 +147,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for Workflow Resources"
+              "title": "Backlinks for The Best Python Dashboard Tools_ Comparative Analysis With Practical Examples - Freedium"
             }
           },
           {
@@ -158,12 +156,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Workflow Resources.md",
+                "file": "The Best Python Dashboard Tools_ Comparative Analysis With Practical Examples - Freedium.pdf",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links from Workflow Resources"
+              "title": "Outgoing links from The Best Python Dashboard Tools_ Comparative Analysis With Practical Examples - Freedium"
             }
           },
           {
@@ -201,13 +199,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Workflow Resources.md",
+                "file": "The Best Python Dashboard Tools_ Comparative Analysis With Practical Examples - Freedium.pdf",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of Workflow Resources"
+              "title": "Outline of The Best Python Dashboard Tools_ Comparative Analysis With Practical Examples - Freedium"
             }
           }
         ]
@@ -230,9 +228,9 @@
   },
   "active": "8fb1d9424bf004c7",
   "lastOpenFiles": [
-    "The Best Python Dashboard Tools_ Comparative Analysis With Practical Examples - Freedium.pdf",
-    "Ideas.md",
+    "Welcome.md",
     "Workflow Resources.md",
-    "Welcome.md"
+    "The Best Python Dashboard Tools_ Comparative Analysis With Practical Examples - Freedium.pdf",
+    "Ideas.md"
   ]
 }
