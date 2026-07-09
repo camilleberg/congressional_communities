@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Awesome-pyecharts</title>
+                <script type="text/javascript" src="https://assets.pyecharts.org/assets/v6/echarts.min.js"></script>
+
+    
+</head>
+<body >
+    <div id="b980ea2625654f64bdb062d14aaf5668" class="chart-container" style="width:900px; height:500px; "></div>
+    <script>
+        var chart_b980ea2625654f64bdb062d14aaf5668 = echarts.init(
+            document.getElementById('b980ea2625654f64bdb062d14aaf5668'), 'white', {renderer: 'canvas', locale: 'ZH'});
+        var option_b980ea2625654f64bdb062d14aaf5668 = {
+    "animation": true,
+    "animationThreshold": 2000,
+    "animationDuration": 1000,
+    "animationEasing": "cubicOut",
+    "animationDelay": 0,
+    "animationDurationUpdate": 300,
+    "animationEasingUpdate": "cubicOut",
+    "animationDelayUpdate": 0,
+    "aria": {
+        "enabled": false
+    },
+    "series": [
+        {
+            "type": "map",
+            "name": "precipitation",
+            "label": {
+                "show": true,
+                "margin": 8,
+                "richInheritPlainLabel": true,
+                "valueAnimation": false
+            },
+            "map": "usa",
+            "data": [
+                {
+                    "name": "Jan",
+                    "value": 2.6
+                },
+                {
+                    "name": "Feb",
+                    "value": 5.9
+                },
+                {
+                    "name": "Mar",
+                    "value": 9.0
+                },
+                {
+                    "name": "Apr",
+                    "value": 26.4
+                },
+                {
+                    "name": "May",
+                    "value": 28.7
+                },
+                {
+                    "name": "Jun",
+                    "value": 70.7
+                },
+                {
+                    "name": "Jul",
+                    "value": 175.6
+                },
+                {
+                    "name": "Aug",
+                    "value": 182.2
+                },
+                {
+                    "name": "Sep",
+                    "value": 48.7
+                },
+                {
+                    "name": "Oct",
+                    "value": 18.8
+                },
+                {
+                    "name": "Nov",
+                    "value": 6.0
+                },
+                {
+                    "name": "Dec",
+                    "value": 2.3
+                }
+            ],
+            "roam": true,
+            "aspectScale": 0.75,
+            "nameProperty": "name",
+            "selectedMode": false,
+            "zoom": 1,
+            "zlevel": 0,
+            "z": 2,
+            "seriesLayoutBy": "column",
+            "datasetIndex": 0,
+            "mapValueCalculation": "sum",
+            "showLegendSymbol": true,
+            "preserveAspect": false,
+            "clip": false,
+            "emphasis": {}
+        }
+    ],
+    "legend": [
+        {
+            "data": [
+                "precipitation"
+            ],
+            "selected": {},
+            "show": true,
+            "padding": 5,
+            "itemGap": 10,
+            "itemWidth": 25,
+            "itemHeight": 14,
+            "backgroundColor": "transparent",
+            "borderColor": "#ccc",
+            "borderRadius": 0,
+            "pageButtonItemGap": 5,
+            "pageButtonPosition": "end",
+            "pageFormatter": "{current}/{total}",
+            "pageIconColor": "#2f4554",
+            "pageIconInactiveColor": "#aaa",
+            "pageIconSize": 15,
+            "animationDurationUpdate": 800,
+            "selector": false,
+            "selectorPosition": "auto",
+            "selectorItemGap": 7,
+            "selectorButtonGap": 10,
+            "triggerEvent": false
+        }
+    ],
+    "tooltip": {
+        "show": true,
+        "trigger": "item",
+        "triggerOn": "mousemove|click",
+        "axisPointer": {
+            "type": "line"
+        },
+        "showContent": true,
+        "alwaysShowContent": false,
+        "showDelay": 0,
+        "hideDelay": 100,
+        "enterable": false,
+        "confine": false,
+        "appendToBody": false,
+        "transitionDuration": 0.4,
+        "displayTransition": true,
+        "textStyle": {
+            "fontSize": 14,
+            "richInheritPlainLabel": true
+        },
+        "borderWidth": 0,
+        "padding": 5,
+        "order": "seriesAsc"
+    },
+    "title": [
+        {
+            "show": true,
+            "text": "Map",
+            "target": "blank",
+            "subtarget": "blank",
+            "padding": 5,
+            "itemGap": 10,
+            "textAlign": "auto",
+            "textVerticalAlign": "auto",
+            "triggerEvent": false
+        }
+    ]
+};
+        chart_b980ea2625654f64bdb062d14aaf5668.setOption(option_b980ea2625654f64bdb062d14aaf5668);
+    </script>
+</body>
+</html>

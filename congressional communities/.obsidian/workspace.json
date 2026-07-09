@@ -41,10 +41,10 @@
             "state": {
               "type": "pdf",
               "state": {
-                "file": "The Best Python Dashboard Tools_ Comparative Analysis With Practical Examples - Freedium.pdf"
+                "file": "📊 Visualizing Data with Pyecharts_ A Complete Tutorial with Real-World Examples - Freedium.pdf"
               },
               "icon": "lucide-file-text",
-              "title": "The Best Python Dashboard Tools_ Comparative Analysis With Practical Examples - Freedium"
+              "title": "📊 Visualizing Data with Pyecharts_ A Complete Tutorial with Real-World Examples - Freedium"
             }
           }
         ],
@@ -137,7 +137,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "The Best Python Dashboard Tools_ Comparative Analysis With Practical Examples - Freedium.pdf",
+                "file": "📊 Visualizing Data with Pyecharts_ A Complete Tutorial with Real-World Examples - Freedium.pdf",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -147,7 +147,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for The Best Python Dashboard Tools_ Comparative Analysis With Practical Examples - Freedium"
+              "title": "Backlinks for 📊 Visualizing Data with Pyecharts_ A Complete Tutorial with Real-World Examples - Freedium"
             }
           },
           {
@@ -156,12 +156,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "The Best Python Dashboard Tools_ Comparative Analysis With Practical Examples - Freedium.pdf",
+                "file": "📊 Visualizing Data with Pyecharts_ A Complete Tutorial with Real-World Examples - Freedium.pdf",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links from The Best Python Dashboard Tools_ Comparative Analysis With Practical Examples - Freedium"
+              "title": "Outgoing links from 📊 Visualizing Data with Pyecharts_ A Complete Tutorial with Real-World Examples - Freedium"
             }
           },
           {
@@ -199,13 +199,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "The Best Python Dashboard Tools_ Comparative Analysis With Practical Examples - Freedium.pdf",
+                "file": "📊 Visualizing Data with Pyecharts_ A Complete Tutorial with Real-World Examples - Freedium.pdf",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of The Best Python Dashboard Tools_ Comparative Analysis With Practical Examples - Freedium"
+              "title": "Outline of 📊 Visualizing Data with Pyecharts_ A Complete Tutorial with Real-World Examples - Freedium"
             }
           }
         ]
@@ -228,9 +228,10 @@
   },
   "active": "8fb1d9424bf004c7",
   "lastOpenFiles": [
+    "The Best Python Dashboard Tools_ Comparative Analysis With Practical Examples - Freedium.pdf",
+    "📊 Visualizing Data with Pyecharts_ A Complete Tutorial with Real-World Examples - Freedium.pdf",
     "Welcome.md",
     "Workflow Resources.md",
-    "The Best Python Dashboard Tools_ Comparative Analysis With Practical Examples - Freedium.pdf",
     "Ideas.md"
   ]
 }
