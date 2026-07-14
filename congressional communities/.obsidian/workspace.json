@@ -39,12 +39,14 @@
             "id": "8fb1d9424bf004c7",
             "type": "leaf",
             "state": {
-              "type": "pdf",
+              "type": "markdown",
               "state": {
-                "file": "📊 Visualizing Data with Pyecharts_ A Complete Tutorial with Real-World Examples - Freedium.pdf"
+                "file": "Ideas.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-file-text",
-              "title": "📊 Visualizing Data with Pyecharts_ A Complete Tutorial with Real-World Examples - Freedium"
+              "icon": "lucide-file",
+              "title": "Ideas"
             }
           }
         ],
@@ -137,7 +139,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "📊 Visualizing Data with Pyecharts_ A Complete Tutorial with Real-World Examples - Freedium.pdf",
+                "file": "Ideas.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -147,7 +149,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for 📊 Visualizing Data with Pyecharts_ A Complete Tutorial with Real-World Examples - Freedium"
+              "title": "Backlinks for Ideas"
             }
           },
           {
@@ -156,12 +158,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "📊 Visualizing Data with Pyecharts_ A Complete Tutorial with Real-World Examples - Freedium.pdf",
+                "file": "Ideas.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links from 📊 Visualizing Data with Pyecharts_ A Complete Tutorial with Real-World Examples - Freedium"
+              "title": "Outgoing links from Ideas"
             }
           },
           {
@@ -199,13 +201,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "📊 Visualizing Data with Pyecharts_ A Complete Tutorial with Real-World Examples - Freedium.pdf",
+                "file": "Ideas.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of 📊 Visualizing Data with Pyecharts_ A Complete Tutorial with Real-World Examples - Freedium"
+              "title": "Outline of Ideas"
             }
           }
         ]
@@ -228,10 +230,12 @@
   },
   "active": "8fb1d9424bf004c7",
   "lastOpenFiles": [
+    "Echarts.md",
+    "Updating maps.md",
+    "Ideas.md",
     "The Best Python Dashboard Tools_ Comparative Analysis With Practical Examples - Freedium.pdf",
-    "📊 Visualizing Data with Pyecharts_ A Complete Tutorial with Real-World Examples - Freedium.pdf",
     "Welcome.md",
     "Workflow Resources.md",
-    "Ideas.md"
+    "📊 Visualizing Data with Pyecharts_ A Complete Tutorial with Real-World Examples - Freedium.pdf"
   ]
 }
