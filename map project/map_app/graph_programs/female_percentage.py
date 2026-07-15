@@ -55,7 +55,12 @@ def update_female_percentage_graph(demographics_data, geoids_df, fig_percent):
         fig_percent.add_trace(
             go.Scatter(
                 x=[pct], y=[1], mode="markers",
-                marker=dict(color=[pct], cmin=cmin, cmax=cmax, size=15),
+                marker=dict(
+                    color=[pct], 
+                    colorscale='Viridis',
+                    cmin=cmin, 
+                    cmax=cmax, 
+                    size=15),
                 name=str(geoid),
             )
         )
