@@ -2,6 +2,8 @@
 import plotly.graph_objects as go
 import pandas as pd
 
+% run graph_programs/custom_colors.py
+
 def make_female_percentage_graph():
 
     # initilaiizing the figure
@@ -57,7 +59,7 @@ def update_female_percentage_graph(demographics_data, geoids_df, fig_percent):
                 x=[pct], y=[1], mode="markers",
                 marker=dict(
                     color=[pct], 
-                    colorscale='Viridis',
+                    colorscale=custom_continuous,
                     cmin=cmin, 
                     cmax=cmax, 
                     size=15),
