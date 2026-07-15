@@ -35,7 +35,7 @@ def make_female_percentage_graph():
 
 # update on click 
 def update_female_percentage_graph(demographics_data, geoids_df, fig_percent):
-    # fig_percent.data = ()  # clear traces from the previous click before redrawing
+    fig_percent.data = ()  # clear traces from the previous click before redrawing
 
     if geoids_df.empty:
         return fig_percent
