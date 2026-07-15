@@ -1,8 +1,7 @@
 
 import plotly.graph_objects as go
-import pandas as pd
 
-% run graph_programs/custom_colors.py
+from graph_programs.custom_colors import custom_continuous
 
 def make_female_percentage_graph():
 
@@ -59,9 +58,9 @@ def update_female_percentage_graph(demographics_data, geoids_df, fig_percent):
                 x=[pct], y=[1], mode="markers",
                 marker=dict(
                     color=[pct], 
-                    colorscale=custom_continuous,
                     cmin=cmin, 
-                    cmax=cmax, 
+                    cmax=cmax,
+                    colorscale=custom_continuous, 
                     size=15),
                 name=str(geoid),
             )
