@@ -25,7 +25,6 @@ def make_female_percentage_graph():
 
     # making cleaner
     fig_percent.update_layout(
-        title=dict(text="Female percentage by region"),
         width=350,
         height=225,
         legend_itemclick=False,
