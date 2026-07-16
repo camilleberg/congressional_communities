@@ -10,12 +10,13 @@ def make_female_percentage_graph():
     
 
     # vertical line at 50 percent
-    fig_percent.add_vline(x=50, line_width=1.5, 
-                          ymin=0.99, ymax=1.01, 
-                          line_dash="dashed", 
-                          line_color="grey")
-    fig_percent.add_hline(y=1, line_width=1.5, 
-                          line_dash="solid", line_color="grey")
+    fig_percent.add_shape(
+        type="line",
+        x0=50, y0=0.5,
+        x1=50, y1=1.5,
+        line=dict(color="grey", width=1.5, dash="solid")
+    )
+    fig_percent.add_hline(y=1, line_width=1.5, line_dash="solid", line_color="grey")
 
 
     # makinf the background transparent
