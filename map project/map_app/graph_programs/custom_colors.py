@@ -6,6 +6,7 @@ cc_blue = "#1f3662"
 cc_grey = "#f6f9f8"
 cc_red = "#b20204"
 cc_cream = "#fae8e7"
+cc_black = "#010101"
 
 # matplotlib
 continuous_colors = [cc_blue, cc_red]

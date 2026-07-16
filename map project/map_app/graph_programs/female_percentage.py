@@ -21,6 +21,7 @@ def make_female_percentage_graph():
 
     # makinf the background transparent
     fig_percent.update_layout({'plot_bgcolor': 'rgba(0, 0, 0, 0)', 'paper_bgcolor': 'rgba(0, 0, 0, 0)'})
+    
 
     # making cleaner
     fig_percent.update_layout(
@@ -69,8 +70,14 @@ def update_female_percentage_graph(demographics_data, geoids_df, fig_percent):
                     colorscale=custom_continuous, 
                     size=15),
                 name=str(geoid),
+                hovertemplate= (
+                    "<b>Female</b>: %{x} % <br>" 
+                    # "<extra></extra>"  # <extra></extra> removes the secondary side-box (trace name)
+                )
             )
         )
+        # Update the tooltip format completely
+    
 
     return fig_percent
 
