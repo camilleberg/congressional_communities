@@ -10,7 +10,13 @@ def make_female_percentage_graph():
     
 
     # vertical line at 50 percent
-    fig_percent.add_vline(x=50, line_width=2, line_dash="dash", line_color="grey")
+    fig_percent.add_vline(x=50, line_width=1.5, 
+                          ymin=0.99, ymax=1.01, 
+                          line_dash="dashed", 
+                          line_color="grey")
+    fig_percent.add_hline(y=1, line_width=1.5, 
+                          line_dash="solid", line_color="grey")
+
 
     # makinf the background transparent
     fig_percent.update_layout({'plot_bgcolor': 'rgba(0, 0, 0, 0)', 'paper_bgcolor': 'rgba(0, 0, 0, 0)'})
@@ -48,9 +54,8 @@ def update_female_percentage_graph(demographics_data, geoids_df, fig_percent):
             demographics_data.loc[(demographics_data.GEOID == GEOID)]["D049FEMALE_PERCENT"].values[0]
         )
         plt_data["GEOID"].append(GEOID)
-
-    cmin = min(plt_data["female_percent"])
-    cmax = max(plt_data["female_percent"])
+        cmin = min(plt_data["female_percent"])
+        cmax = max(plt_data["female_percent"])
 
     for geoid, pct in zip(plt_data["GEOID"], plt_data["female_percent"]):
         fig_percent.add_trace(

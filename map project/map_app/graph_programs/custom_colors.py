@@ -8,7 +8,7 @@ cc_red = "#b20204"
 cc_cream = "#fae8e7"
 
 # matplotlib
-continuous_colors = [cc_blue, cc_grey, cc_red]
+continuous_colors = [cc_blue, cc_red]
 _cmap = LinearSegmentedColormap.from_list("my_gradient", continuous_colors)
 
 # converting to plotly 
