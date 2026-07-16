@@ -1,6 +1,5 @@
 
 import plotly.graph_objects as go
-
 from graph_programs.custom_colors import custom_continuous
 
 def make_female_percentage_graph():
@@ -16,8 +15,9 @@ def make_female_percentage_graph():
         x1=50, y1=1.5,
         line=dict(color="grey", width=1.5, dash="solid")
     )
+    
+    # horizonotal line to look pretty 
     fig_percent.add_hline(y=1, line_width=1.5, line_dash="solid", line_color="grey")
-
 
     # makinf the background transparent
     fig_percent.update_layout({'plot_bgcolor': 'rgba(0, 0, 0, 0)', 'paper_bgcolor': 'rgba(0, 0, 0, 0)'})
@@ -49,15 +49,15 @@ def update_female_percentage_graph(demographics_data, geoids_df, fig_percent):
     if geoids_df.empty:
         return fig_percent
 
-    plt_data = {"female_percent": [], "GEOID": []}
+    
+    # indexes the data at GEOID
+    demo_indexed = demographics_data.set_index("GEOID")
+    # filters in specific GEOIDS 
+    subset = demo_indexed.loc[geoids_df["GEOID"], 'gender_female']
+    plt_data = {"GEOID": subset.index.tolist(), 'female_percent': subset.tolist()}
 
-    for GEOID in geoids_df["GEOID"]:
-        plt_data["female_percent"].append(
-            demographics_data.loc[(demographics_data.GEOID == GEOID)]["D049FEMALE_PERCENT"].values[0]
-        )
-        plt_data["GEOID"].append(GEOID)
-        cmin = min(plt_data["female_percent"])
-        cmax = max(plt_data["female_percent"])
+    cmin = min(plt_data["female_percent"])
+    cmax = max(plt_data["female_percent"])
 
     for geoid, pct in zip(plt_data["GEOID"], plt_data["female_percent"]):
         fig_percent.add_trace(
