@@ -10,9 +10,16 @@ def make_age_percentage_graph():
     # getting rid of grid lines
     fig_age.update_xaxes(showgrid=False)
     fig_age.update_yaxes(showgrid=False)
+    
+    # makign age bracket names
+    age_bracket_names = ["Under 15", "15 to 24", "25 to 34", "35 to 44", 
+                         "45 to 54", "55 to 64", "65 +"]
 
     fig_age.update_layout(
         yaxis=dict(range=[0, 45]),
+        xaxis=dict(title = "Age Groups", 
+                   tickmode = 'array', 
+                   ticktext = age_bracket_names)
     )
     
     return fig_age 
@@ -41,7 +48,7 @@ def update_age_percentage_graph(demographics_data, geoids_df, fig_age, age_brack
                 mode='lines', 
                 hovertemplate= (
                     "%{y} % <br>" 
-                    "<extra></extra>"  # <extra></extra> removes the secondary side-box (trace name)
+                    # "<extra></extra>"  # <extra></extra> removes the secondary side-box (trace name)
                 )
             )
         )
