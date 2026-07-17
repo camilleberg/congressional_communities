@@ -21,7 +21,7 @@ def make_age_percentage_graph(age_bracket):
                    tickmode = 'array', 
                    tickvals = age_bracket, 
                    ticktext = age_bracket_names), 
-        margin=dict(l=15, r=5, t=5, b=5),,  # Sets Left, Right, Top, Bottom margins to 0
+        margin=dict(l=15, r=5, t=5, b=5),  # Sets Left, Right, Top, Bottom margins to 0
     )
     
     return fig_age 
