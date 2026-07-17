@@ -1,7 +1,7 @@
 import plotly.graph_objects as go
 from graph_programs.custom_colors import custom_continuous
 
-def make_age_percentage_graph():
+def make_age_percentage_graph(age_bracket):
     fig_age = go.Figure()
 
     # making backgroufn transparent
@@ -19,6 +19,7 @@ def make_age_percentage_graph():
         yaxis=dict(range=[0, 45]),
         xaxis=dict(title = "Age Groups", 
                    tickmode = 'array', 
+                   tickval = age_bracket, 
                    ticktext = age_bracket_names)
     )
     

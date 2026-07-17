@@ -30,7 +30,7 @@ def make_female_percentage_graph():
         legend_itemclick=False,
         xaxis=dict(range=[0, 100], title="% female", 
                 tickmode='array', tickvals=[0, 50, 100], 
-                ticktext=['0%', '50%', '100%']),  # custom ticks for y-axis),
+                ticktext=['0%', '50%', '100%']),  # custom ticks for x-axis),
         yaxis=dict(visible=False, range=[0, 2]),
     )
 
