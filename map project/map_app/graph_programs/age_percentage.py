@@ -51,7 +51,7 @@ def update_age_percentage_graph(demographics_data, geoids_df, fig_age, age_brack
                 hovertemplate= (
                     "%{y} % " 
                     # "<extra></extra>"  # <extra></extra> removes the secondary side-box (trace name)
-                )
+                ), 
             )
         )
         

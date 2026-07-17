@@ -11,8 +11,8 @@ def make_female_percentage_graph():
     # vertical line at 50 percent
     fig_percent.add_shape(
         type="line",
-        x0=50, y0=0.5,
-        x1=50, y1=1.5,
+        x0=50, y0=0.75,
+        x1=50, y1=1.25,
         line=dict(color="grey", width=1.5, dash="solid")
     )
     
