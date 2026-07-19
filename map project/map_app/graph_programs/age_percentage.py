@@ -16,12 +16,13 @@ def make_age_percentage_graph(age_bracket):
                          "45 to 54", "55 to 64", "65 +"]
 
     fig_age.update_layout(
+        title="Age Groups",
         yaxis=dict(range=[0, 45]),
         xaxis=dict(title = "Age Groups", 
                    tickmode = 'array', 
                    tickvals = age_bracket, 
                    ticktext = age_bracket_names), 
-        margin=dict(l=15, r=5, t=5, b=5),  # Sets Left, Right, Top, Bottom margins to 0
+        # margin=dict(l=30, r=15, t=15, b=15),  # Sets Left, Right, Top, Bottom margins to 0
     )
     
     return fig_age 

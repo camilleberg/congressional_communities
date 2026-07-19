@@ -25,6 +25,7 @@ def make_female_percentage_graph():
 
     # making cleaner
     fig_percent.update_layout(
+        title="Gender Demographics",
         width=350,
         height=225,
         legend_itemclick=False,
@@ -32,7 +33,7 @@ def make_female_percentage_graph():
                 tickmode='array', tickvals=[0, 50, 100], 
                 ticktext=['0%', '50%', '100%']),  # custom ticks for x-axis),
         yaxis=dict(visible=False, range=[0, 2]),
-        margin=dict(l=15, r=5, t=5, b=5),  # Sets Left, Right, Top, Bottom margins to 0
+        # margin=dict(l=30, r=15, t=30, b=15),  # Sets Left, Right, Top, Bottom margins to 0
     )
 
     # getting rid of grid lines
