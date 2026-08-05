@@ -23,8 +23,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Generate directory listings
-        uses: jayanta525/github-pages-directory-listing@v4
+      - name: Directory Listing
+        uses: gacts/directory-listing@v1.0.4
         with:
           FOLDER: .
 
