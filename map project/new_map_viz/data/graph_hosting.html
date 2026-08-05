@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+  <style>
+    body { margin: 0; font-family: sans-serif; }
+    select { font-size: 16px; margin: 10px; }
+  </style>
+</head>
+<body>
+
+  <select id="ccn20Select"></select>
+  <div id="chart" style="width:100%; height:400px;"></div>
+
+  <script>
+    let allData = {};
+
+    // 1. Load the precomputed JSON
+    fetch('./all_cc_data.json')
+      .then(res => res.json())
+      .then(data => {
+        allData = data;
+        populateDropdown(Object.keys(data));
+
+        // 2. Check URL for a preselected ccn20 (e.g. ?ccn20=12345)
+        const params = new URLSearchParams(window.location.search);
+        const initialState = params.get('ccn20') || Object.keys(data)[0];
+
+        document.getElementById('ccn20Select').value = initialState;
+        renderChart(initialState);
+      });
+
+    function populateDropdown(stateNames) {
+      const select = document.getElementById('ccn20Select');
+      stateNames.forEach(name => {
+        const opt = document.createElement('option');
+        opt.value = name;
+        opt.textContent = name;
+        select.appendChild(opt);
+      });
+      select.addEventListener('change', (e) => {
+        renderChart(e.target.value);
+        updateUrl(e.target.value); // keep URL in sync for sharing/bookmarking
+      });
+    }
+
+    function renderChart(stateName) {
+      const d = allData[stateName];
+      const trace = {
+        x: d.age_brackets,
+        y: d.age_brackets.map(b => d.cc[b]),
+        type: 'bar',
+        name: 'Congressional Community'
+      };
+      Plotly.newPlot('chart', [trace], { title: stateName });
+    }
+
+    function updateUrl(stateName) {
+      const url = new URL(window.location);
+      url.searchParams.set('state', stateName);
+      window.history.replaceState({}, '', url);
+    }
+  </script>
+
+</body>
+</html>

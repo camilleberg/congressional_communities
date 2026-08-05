@@ -41,12 +41,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "arcgis map/arcgis pro/Resources.md",
+                "file": "Meeting Notes.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Resources"
+              "title": "Meeting Notes"
             }
           },
           {
@@ -258,9 +258,9 @@
   },
   "active": "860222a29ff61d21",
   "lastOpenFiles": [
+    "arcgis map/arcgis pro/Resources.md",
     "Screenshot 2026-07-19 at 13.55.02.png",
     "arcgis map/Setup.md",
-    "arcgis map/arcgis pro/Resources.md",
     "arcgis map/arcgis pro",
     "Meeting Notes.md",
     "old map/Updating maps.md",
