@@ -10,7 +10,6 @@ permissions:
   contents: read
   pages: write
   id-token: write
-  
 
 concurrency:
   group: pages
@@ -27,12 +26,29 @@ jobs:
       - name: Directory Listing
         uses: gacts/directory-listing@v1.0.4
         with:
-          FOLDER: .
+          FOLDER: .   # keep this if the action writes files into repo; next step will copy into public/
+
+      - name: Prepare site folder
+        run: |
+          # create a clean public folder and copy only the files that should be published
+          rm -rf public
+          mkdir public
+          # copy generated HTML and assets into public; adjust pattern as needed
+          # if your generated site files are at repo root, copy the ones you need:
+          cp index.html public/ 2>/dev/null || true
+          cp -r _site/* public/ 2>/dev/null || true
+          cp -r public_assets/* public/ 2>/dev/null || true
+
+      - name: Inspect site contents
+        run: |
+          echo "Public folder size and listing:"
+          du -sh public || true
+          ls -la public || true
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: public
 
   deploy:
     needs: build
@@ -42,6 +58,9 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
 
     runs-on: ubuntu-latest
+
+    # increase total job timeout so we allow more time for Pages to finish the deployment
+    timeout-minutes: 30
 
     steps:
       - name: Deploy to GitHub Pages
