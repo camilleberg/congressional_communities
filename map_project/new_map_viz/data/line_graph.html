@@ -18,6 +18,7 @@
     const okabeItoColors = ["#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7"];
     const lighterItoColors = ["#F5CC7F", "#A9DBF3", "#79CBB0", "#F8F19A", "#7FB8D8", "#EBA080", "#E2B9CF"];
     const age_bracket_names = ["Under 18", "18-64", "65 and over"];
+    const greyscale_color = ["#D8D8D8", "#A2A2A2"];
 
     let allData = {};
     let currentCcn20 = null;
@@ -92,6 +93,33 @@
       for (let i = 0; i <= 10; i++) intervals.push(Math.round((i / 10) * 100) / 100);
 
       const traces = [
+        { // false trace for legend spacing
+          x: [null],                 // Prevents anything from rendering on the chart
+          y: [null],
+          type: 'scatter',
+          mode: 'markers',
+          marker: { symbol: 'diamond', size: 20, color: greyscale_color[0], line: { color: 'white', width: 2 }},  // The separate color you want to force in the legend
+          name: 'State', // Label for your legend item
+          showlegend: ageIndex === 0           // Force this to represent the data in the legend
+        },
+        { // false trace for legend spacing
+          x: [null],                 // Prevents anything from rendering on the chart
+          y: [null],
+          type: 'scatter',
+          mode: 'markers',
+          marker: { symbol: 'circle', size: 20, color: greyscale_color[0], line: { color: 'white', width: 2 }},  // The separate color you want to force in the legend
+          name: 'Congressional District', // Label for your legend item
+          showlegend: ageIndex === 0           // Force this to represent the data in the legend
+        },
+        { // false trace for legend spacing
+          x: [null],                 // Prevents anything from rendering on the chart
+          y: [null],
+          type: 'scatter',
+          mode: 'markers',
+          marker: { symbol: 'circle', size: 20, color: greyscale_color[1], line: { color: 'white', width: 2 }},  // The separate color you want to force in the legend
+          name: 'Congressional Community', // Label for your legend item
+          showlegend: ageIndex === 0           // Force this to represent the data in the legend
+        },
         {
           x: intervals,
           y: intervals.map(() => 1),
@@ -106,7 +134,7 @@
           mode: 'markers',
           marker: { symbol: 'diamond', size: 20, color: notUsed, line: { color: 'white', width: 2 } },
           name: 'State',
-          showlegend: ageIndex === 0,   // only show legend once, on the first chart
+          showlegend: false,  
           hovertemplate: `State: ${(xState * 100).toFixed(1)}%<extra></extra>`
         },
         {
@@ -114,7 +142,7 @@
           mode: 'markers',
           marker: { symbol: 'circle', size: 20, color: notUsed, line: { color: 'white', width: 2 } },
           name: 'Congressional District',
-          showlegend: ageIndex === 0,
+          showlegend: false,
           hovertemplate: `Congressional District: ${(xCd * 100).toFixed(1)}%<extra></extra>`
         },
         {
@@ -122,7 +150,7 @@
           mode: 'markers',
           marker: { symbol: 'circle', size: 20, color: colorUsed, line: { color: 'white', width: 2 } },
           name: 'Congressional Community',
-          showlegend: ageIndex === 0,
+          showlegend: false,
           hovertemplate: `Congressional Community: ${(xCc * 100).toFixed(1)}%<extra></extra>`
         }
       ];
