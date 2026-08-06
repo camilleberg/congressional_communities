@@ -194,19 +194,12 @@
       const xCd = d.cd[ageLabel] / d.cd_total;
       const xState = d.state[ageLabel] / d.state_total;
 
-      const diff_cc_cd = xCc - xCd;
-      const diff_cc_state = xCc - xState;
-
       // --- update the stat card for this age bracket ---
       // swap this for whatever number you actually want displayed
       // (e.g. raw count d.cc[ageLabel], or a percentage like (xCc*100).toFixed(1) + '%')
       const statValue = d.cc[ageLabel];
       document.getElementById(`stat_value_${ageIndex}`).textContent =
         statValue.toLocaleString();
-
-      const statValue2 = (diff_cc_state.toFixed(2) + '%');
-      document.getElementById(`stat2_value_${ageIndex}`).textContent =
-        statValue2.toLocaleString();
 
       const intervals = [];
       for (let i = 0; i <= 10; i++) intervals.push(Math.round((i / 10) * 100) / 100);
