@@ -68,36 +68,112 @@
 
     // creates one row per age bracket: a chart div on the left, a stat card on the right
     function buildChartContainers(ageBrackets) {
-      const container = document.getElementById('chartsContainer');
-      container.innerHTML = '';
+        const container = document.getElementById('chartsContainer');
+        container.innerHTML = '';
 
-      ageBrackets.forEach((label, i) => {
-        const row = document.createElement('div');
-        row.className = 'chart-row';
+        ageBrackets.forEach((label, i) => {
+            const color = okabeItoColors[i % okabeItoColors.length];
 
-        const chartDiv = document.createElement('div');
-        chartDiv.id = `chart_${i}`;
-        chartDiv.className = 'chart-plot';
-        chartDiv.style.height = '250px';
-        chartDiv.style.width = '100%'; 
+            // Row: chart | stats
+            const row = document.createElement('div');
+            row.className = 'chart-row';
+            row.style.display = 'flex';
+            row.style.alignItems = 'center';
+            row.style.gap = '20px';
+            row.style.marginBottom = '30px';
 
-        const statDiv = document.createElement('div');
-        statDiv.id = `stat_${i}`;
-        statDiv.className = 'stat-card';
-        statDiv.innerHTML = `
-          <div style="font-family: Arial, sans-serif; padding: 16px; border-radius: 8px; background-color: #f4f6f9; display: inline-block; min-width: 100px;">
-              <span style="font-size: 12px; color: #555; text-transform: uppercase; letter-spacing: 0.5px;" id="stat_label_${i}">Community Population</span>
-              <div style="font-size: 28px; font-weight: bold; color: #1a73e8; margin-top: 4px;" id="stat_value_${i}">
-                  —
-              </div>
-          </div>
-        `;
+            // Chart
+            const chartDiv = document.createElement('div');
+            chartDiv.id = `chart_${i}`;
+            chartDiv.className = 'chart-plot';
+            chartDiv.style.flex = '1';
+            chartDiv.style.height = '250px';
 
-        row.appendChild(chartDiv);
-        row.appendChild(statDiv);
-        container.appendChild(row);
-      });
-    }
+            // Vertical stats container
+            const statsContainer = document.createElement('div');
+            statsContainer.className = 'stats-container';
+            statsContainer.style.display = 'flex';
+            statsContainer.style.flexDirection = 'column';
+            statsContainer.style.gap = '12px';
+            statsContainer.style.minWidth = '180px';
+
+            // Stat card 1
+            const statDiv = document.createElement('div');
+            statDiv.innerHTML = `
+            <div style="
+                font-family: Arial, sans-serif;
+                padding:16px;
+                border-radius:8px;
+                background:#f4f6f9;
+            ">
+                <span
+                id="stat_label_${i}"
+                style="
+                    font-size:12px;
+                    text-transform:uppercase;
+                    letter-spacing:0.5px;
+                    color:${color};
+                    font-weight:bold;
+                ">
+                Community Population
+                </span>
+
+                <div
+                id="stat_value_${i}"
+                style="
+                    font-size:28px;
+                    font-weight:bold;
+                    color:#333;
+                    margin-top:4px;
+                ">
+                —
+                </div>
+            </div>
+            `;
+
+            // Stat card 2
+            const statDivPop = document.createElement('div');
+            statDivPop.innerHTML = `
+            <div style="
+                font-family: Arial, sans-serif;
+                padding:16px;
+                border-radius:8px;
+                background:#f4f6f9;
+            ">
+                <span
+                id="stat2_label_${i}"
+                style="
+                    font-size:12px;
+                    text-transform:uppercase;
+                    letter-spacing:0.5px;
+                    color:${color};
+                    font-weight:bold;
+                ">
+                Total Population
+                </span>
+
+                <div
+                id="stat2_value_${i}"
+                style="
+                    font-size:28px;
+                    font-weight:bold;
+                    color:#333;
+                    margin-top:4px;
+                ">
+                —
+                </div>
+            </div>
+            `;
+
+            statsContainer.appendChild(statDiv);
+            statsContainer.appendChild(statDivPop);
+
+            row.appendChild(chartDiv);
+            row.appendChild(statsContainer);
+
+            container.appendChild(row);
+        });
+        }
 
     function floorToDecimals(val, decimals) {
       const factor = Math.pow(10, decimals);
