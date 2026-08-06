@@ -79,22 +79,22 @@
             row.className = 'chart-row';
             row.style.display = 'flex';
             row.style.alignItems = 'center';
-            row.style.gap = '20px';
-            row.style.marginBottom = '30px';
+            row.style.gap = '10px';
+            row.style.marginBottom = '20px';
 
             // Chart
             const chartDiv = document.createElement('div');
             chartDiv.id = `chart_${i}`;
             chartDiv.className = 'chart-plot';
             chartDiv.style.flex = '1';
-            chartDiv.style.height = '250px';
+            chartDiv.style.height = '200px';
 
             // Vertical stats container
             const statsContainer = document.createElement('div');
             statsContainer.className = 'stats-container';
             statsContainer.style.display = 'flex';
             statsContainer.style.flexDirection = 'column';
-            statsContainer.style.gap = '12px';
+            statsContainer.style.gap = '10px';
             statsContainer.style.minWidth = '180px';
 
             // Stat card 1
@@ -122,8 +122,7 @@
                 id="stat_value_${i}"
                 style="
                     font-size:28px;
-                    font-weight:bold;
-                    color:#333;
+                    color:${color};
                     margin-top:4px;
                 ">
                 —
@@ -156,8 +155,7 @@
                 id="stat2_value_${i}"
                 style="
                     font-size:28px;
-                    font-weight:bold;
-                    color:#333;
+                    color:${color};
                     margin-top:4px;
                 ">
                 —
