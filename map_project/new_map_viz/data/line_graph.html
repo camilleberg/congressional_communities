@@ -62,7 +62,7 @@
         div.id = `chart_${i}`;
         div.className = 'chart-row';
         div.style.width = '100%';
-        div.style.height = '200px';
+        div.style.height = '250px';
         container.appendChild(div);
       });
     }
@@ -95,8 +95,8 @@
         {
           x: intervals,
           y: intervals.map(() => 1),
-          mode: 'markers',
-          marker: { symbol: 'line-ns', size: 10, color: 'lightgrey', line: { width: 1 } },
+          mode: 'lines+markers',
+          marker: { symbol: 'line-ns', size: 10, color: 'lightgrey', line: { width: 2, color: 'lightgrey' } },
           opacity: 0.5,
           hoverinfo: 'skip',
           showlegend: false
@@ -131,7 +131,7 @@
       const xMax = 1;
 
       const layout = {
-        title: { text: age_bracket_names[ageIndex], font: { size: 13 }, x: 1, xanchor: 'left' },
+        title: { text: 'Group: ' + age_bracket_names[ageIndex], font: { size: 13, color: 'darkgrey' }, x: 0.01, xanchor: 'left', yanchor: 'top', y:0.7 },
         xaxis: {
           range: [xMin, xMax],
           tickmode: 'array',
