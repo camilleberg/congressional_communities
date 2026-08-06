@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+  <style>
+    body { margin: 0; font-family: sans-serif; padding: 10px; }
+    select { font-size: 16px; margin: 10px 10px 10px 0; }
+  </style>
+</head>
+<body>
+
+  <select id="ccn20Select"></select>
+  <select id="ageSelect"></select>
+  <div id="chart" style="width:100%; height:220px;"></div>
+
+  <script>
+    // Replace these with your actual Okabe-Ito color arrays, in the same
+    // order as age_bracket_cols in your Python code.
+    const okabeItoColors = ["#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7"];
+    const lighterItoColors = ["#F5CC7F", "#A9DBF3", "#79CBB0", "#F8F19A", "#7FB8D8", "#EBA080", "#E2B9CF"];
+
+    let allData = {};
+    let currentCcn20 = null;
+    let currentAge = null;
+
+    fetch('./all_cc_data.json')
+      .then(res => res.json())
+      .then(data => {
+        allData = data;
+        const ccn20List = Object.keys(data);
+        populateCcn20Dropdown(ccn20List);
+
+        const params = new URLSearchParams(window.location.search);
+        const initialCcn20 = params.get('ccn20') || ccn20List[0];
+        const initialAge = params.get('age') || data[initialCcn20].age_brackets[0];
+
+        currentCcn20 = initialCcn20;
+        currentAge = initialAge;
+
+        document.getElementById('ccn20Select').value = initialCcn20;
+        populateAgeDropdown(data[initialCcn20].age_brackets);
+        document.getElementById('ageSelect').value = initialAge;
+
+        renderChart();
+      });
+
+    function populateCcn20Dropdown(ccn20List) {
+      const select = document.getElementById('ccn20Select');
+      ccn20List.forEach(id => {
+        const opt = document.createElement('option');
+        opt.value = id;
+        opt.textContent = id;
+        select.appendChild(opt);
+      });
+      select.addEventListener('change', (e) => {
+        currentCcn20 = e.target.value;
+        populateAgeDropdown(allData[currentCcn20].age_brackets);
+        currentAge = allData[currentCcn20].age_brackets[0];
+        document.getElementById('ageSelect').value = currentAge;
+        renderChart();
+        updateUrl();
+      });
+    }
+
+    function populateAgeDropdown(ageBrackets) {
+      const select = document.getElementById('ageSelect');
+      select.innerHTML = '';
+      ageBrackets.forEach(label => {
+        const opt = document.createElement('option');
+        opt.value = label;
+        opt.textContent = label;
+        select.appendChild(opt);
+      });
+      select.addEventListener('change', (e) => {
+        currentAge = e.target.value;
+        renderChart();
+        updateUrl();
+      });
+    }
+
+    function floorToDecimals(val, decimals) {
+      const factor = Math.pow(10, decimals);
+      return Math.floor(val * factor) / factor;
+    }
+
+    function ceilToDecimals(val, decimals) {
+      const factor = Math.pow(10, decimals);
+      return Math.ceil(val * factor) / factor;
+    }
+
+    function renderChart() {
+      const d = allData[currentCcn20];
+      const ageIndex = d.age_brackets.indexOf(currentAge);
+
+      const notUsed = lighterItoColors[ageIndex];
+      const colorUsed = okabeItoColors[ageIndex];
+
+      const xCc = d.cc[currentAge] / d.cc_total;
+      const xCd = d.cd[currentAge] / d.cd_total;
+      const xState = d.state[currentAge] / d.state_total;
+
+      const intervals = [];
+      for (let i = 0; i <= 10; i++) intervals.push(Math.round((i / 10) * 100) / 100);
+
+      const traces = [
+        {
+          x: intervals,
+          y: intervals.map(() => 1),
+          mode: 'markers',
+          marker: { symbol: 'line-ns', size: 10, color: 'lightgrey', line: { width: 1 } },
+          opacity: 0.5,
+          hoverinfo: 'skip',
+          showlegend: false
+        },
+        {
+          x: [xState], y: [1],
+          mode: 'markers',
+          marker: { symbol: 'diamond', size: 20, color: notUsed, line: { color: 'white', width: 2 } },
+          name: 'State',
+          hovertemplate: `State: ${(xState * 100).toFixed(1)}%<extra></extra>`
+        },
+        {
+          x: [xCd], y: [1],
+          mode: 'markers',
+          marker: { symbol: 'circle', size: 20, color: notUsed, line: { color: 'white', width: 2 } },
+          name: 'Congressional District',
+          hovertemplate: `Congressional District: ${(xCd * 100).toFixed(1)}%<extra></extra>`
+        },
+        {
+          x: [xCc], y: [1],
+          mode: 'markers',
+          marker: { symbol: 'circle', size: 20, color: colorUsed, line: { color: 'white', width: 2 } },
+          name: 'Congressional Community',
+          hovertemplate: `Congressional Community: ${(xCc * 100).toFixed(1)}%<extra></extra>`
+        }
+      ];
+
+      const xMin = floorToDecimals(Math.min(xCc, xCd, xState), 1) - 0.01;
+      const xMax = ceilToDecimals(Math.max(xCc, xCd, xState), 2) + 0.07;
+
+      const layout = {
+        xaxis: {
+          range: [xMin, xMax],
+          tickmode: 'array',
+          tickvals: intervals,
+          ticktext: intervals.map(v => `${Math.round(v * 100)}%`),
+          showgrid: false,
+          zeroline: false,
+          color: 'lightgrey'
+        },
+        yaxis: { visible: false, range: [0.9, 1.1] },
+        legend: { orientation: 'h', yanchor: 'bottom', y: 1.15, xanchor: 'center', x: 0.5 },
+        height: 200,
+        margin: { l: 20, r: 20, t: 40, b: 40 },
+        plot_bgcolor: 'white'
+      };
+
+      Plotly.newPlot('chart', traces, layout, { displayModeBar: false, responsive: true });
+    }
+
+    function updateUrl() {
+      const url = new URL(window.location);
+      url.searchParams.set('ccn20', currentCcn20);
+      url.searchParams.set('age', currentAge);
+      window.history.replaceState({}, '', url);
+    }
+  </script>
+
+</body>
+</html>
