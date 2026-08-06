@@ -17,6 +17,7 @@
   <script>
     const okabeItoColors = ["#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7"];
     const lighterItoColors = ["#F5CC7F", "#A9DBF3", "#79CBB0", "#F8F19A", "#7FB8D8", "#EBA080", "#E2B9CF"];
+    const age_bracket_names = ["Under 18", "18-64", "65 and over"];
 
     let allData = {};
     let currentCcn20 = null;
@@ -130,7 +131,7 @@
       const xMax = 1;
 
       const layout = {
-        title: { text: ageLabel, font: { size: 13 }, x: 0, xanchor: 'left' },
+        title: { text: age_bracket_names[ageIndex], font: { size: 13 }, x: 0, xanchor: 'left' },
         xaxis: {
           range: [xMin, xMax],
           tickmode: 'array',
