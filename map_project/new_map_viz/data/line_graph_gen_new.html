@@ -20,34 +20,81 @@
       flex: 0 0 auto;
       margin-left: 16px;
     }
-    .waffle-plot {
-      flex: 0 0 auto;
-      margin-left: 16px;
+    .page-layout {
+      display: flex;
+      align-items: flex-start;
+      gap: 24px;
     }
-    .waffle-title {
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: darkgrey;
-      margin-bottom: 6px;
+    .main-content {
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+    .right-panel {
+      flex: 0 0 260px;
+      position: sticky;
+      top: 16px;
+    }
+    .waffle-section {
+      margin: 10px 0 30px 0;
       text-align: center;
     }
-    .waffle-grid {
-      display: grid;
-      grid-template-columns: repeat(20, 1fr);
-      grid-template-rows: repeat(5, 1fr);
-      gap: 2px;
+    .waffle-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 12px;
     }
-    .waffle-grid i {
-      font-size: 10px;
+    .waffle-legend {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+      margin: 0 auto 14px auto;
+      width: fit-content;
+      font-size: 12px;
+      color: #333;
+    }
+    .waffle-legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .waffle-legend-swatch {
+      width: 12px;
+      height: 12px;
+      border-radius: 2px;
+      display: inline-block;
+    }
+    .waffle-grid-full {
+      display: grid;
+      grid-template-columns: repeat(10, 1fr);
+      grid-template-rows: repeat(10, 1fr);
+      gap: 2px;
+      width: 220px;
+      margin: 0 auto;
+    }
+    .waffle-grid-full i {
+      font-size: 16px;
       line-height: 1;
     }
   </style>
 </head>
 <body>
 
-  <select id="ccn20Select"></select>
-  <div id="chartsContainer"></div>
+  <div class="page-layout">
+    <div class="main-content">
+      <select id="ccn20Select"></select>
+      <div id="chartsContainer"></div>
+    </div>
+
+    <div class="right-panel">
+      <div class="waffle-section">
+        <div class="waffle-title">If your community was 100 people...by age</div>
+        <div id="waffleLegend" class="waffle-legend"></div>
+        <div id="waffleFull" class="waffle-grid-full"></div>
+      </div>
+    </div>
+  </div>
 
   <script>
     const okabeItoColors = ["#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7"];
@@ -71,6 +118,7 @@
 
         document.getElementById('ccn20Select').value = currentCcn20;
         buildChartContainers(allData[currentCcn20].age_brackets);
+        renderFullWaffle(allData[currentCcn20].age_brackets);
         renderAllCharts();
       });
 
@@ -85,12 +133,13 @@
       select.addEventListener('change', (e) => {
         currentCcn20 = e.target.value;
         buildChartContainers(allData[currentCcn20].age_brackets);
+        renderFullWaffle(allData[currentCcn20].age_brackets);
         renderAllCharts();
         updateUrl();
       });
     }
 
-    // creates one row per age bracket: a chart div, a waffle div, and a stat card, left to right
+    // creates one row per age bracket: a chart div and a stat card, left to right
     function buildChartContainers(ageBrackets) {
         const container = document.getElementById('chartsContainer');
         container.innerHTML = '';
@@ -98,7 +147,7 @@
         ageBrackets.forEach((label, i) => {
             const color = okabeItoColors[i % okabeItoColors.length];
 
-            // Row: chart | waffle | stats
+            // Row: stats | chart
             const row = document.createElement('div');
             row.className = 'chart-row';
             row.style.display = 'flex';
@@ -113,14 +162,6 @@
             chartDiv.style.flex = '1';
             chartDiv.style.height = '180px';
             chartDiv.style.minWidth = '0'; // allow shrinking
-
-            // Waffle chart column
-            const waffleDiv = document.createElement('div');
-            waffleDiv.className = 'waffle-plot';
-            waffleDiv.innerHTML = `
-              <div class="waffle-title">Age Composition</div>
-              <div id="waffle_${i}" class="waffle-grid"></div>
-            `;
 
             // Vertical stats container
             const statsContainer = document.createElement('div');
@@ -181,7 +222,7 @@
                     color:${color};
                     font-weight:bold;
                 ">
-                Community vs State Difference
+                Community vs <br>Congressional District
                 </span>
 
                 <div
@@ -199,9 +240,8 @@
             statsContainer.appendChild(statDiv);
             statsContainer.appendChild(statDivPop);
 
-            row.appendChild(waffleDiv);
-            row.appendChild(chartDiv);
             row.appendChild(statsContainer);
+            row.appendChild(chartDiv);
 
             container.appendChild(row);
         });
@@ -230,31 +270,48 @@
       return result;
     }
 
-    // builds a 20x5 (100-icon) waffle chart showing the age-bracket composition
-    // of the Congressional Community, with `highlightIndex` shown in its true
-    // color and every other bracket shown in grey.
-    function renderWaffle(divId, ageBrackets, highlightIndex) {
+    // builds ONE combined 10x10 (100-icon) waffle chart showing the full
+    // age-bracket composition of the Congressional Community, with every
+    // bracket shown in its own true color at once (mirrors make_full_chart_cc).
+    function renderFullWaffle(ageBrackets) {
       const d = allData[currentCcn20];
 
       const rawCounts = ageBrackets.map(label => d.cc[label]);
       const iconCounts = allocateIcons(rawCounts, 100);
 
-      // build a flat array of 100 color assignments, grouped by bracket
+      // build a flat array of 100 color assignments, grouped by bracket,
+      // in "NW" (row-major, top-left start) order to match the grid
       const cellColors = [];
       iconCounts.forEach((count, idx) => {
-        const color = idx === highlightIndex ? okabeItoColors[idx % okabeItoColors.length] : waffleNotUsedColor;
+        const color = okabeItoColors[idx % okabeItoColors.length];
         for (let c = 0; c < count; c++) cellColors.push(color);
       });
       // in case rounding leaves us short (shouldn't happen with allocateIcons, but be safe)
       while (cellColors.length < 100) cellColors.push(waffleNotUsedColor);
 
-      const grid = document.getElementById(divId);
+      const grid = document.getElementById('waffleFull');
       grid.innerHTML = '';
       cellColors.forEach(color => {
         const icon = document.createElement('i');
         icon.className = 'fa-solid fa-user';
         icon.style.color = color;
         grid.appendChild(icon);
+      });
+
+      renderWaffleLegend(ageBrackets);
+    }
+
+    function renderWaffleLegend(ageBrackets) {
+      const legend = document.getElementById('waffleLegend');
+      legend.innerHTML = '';
+      ageBrackets.forEach((label, i) => {
+        const item = document.createElement('div');
+        item.className = 'waffle-legend-item';
+        item.innerHTML = `
+          <span class="waffle-legend-swatch" style="background:${okabeItoColors[i % okabeItoColors.length]}"></span>
+          ${age_bracket_names[i] || label}
+        `;
+        legend.appendChild(item);
       });
     }
 
@@ -279,7 +336,7 @@
       document.getElementById(`stat_value_${ageIndex}`).textContent =
         statValue.toLocaleString();
 
-      const statValue2 = (diff_cc_state.toFixed(2) + '%');
+      const statValue2 = (diff_cc_cd.toFixed(2) + '%');
       document.getElementById(`stat2_value_${ageIndex}`).textContent =
         statValue2.toLocaleString();
 
@@ -359,9 +416,6 @@
       };
 
       Plotly.newPlot(divId, traces, layout, { displayModeBar: false, responsive: true });
-
-      // render matching waffle chart for this age bracket
-      renderWaffle(`waffle_${ageIndex}`, allData[currentCcn20].age_brackets, ageIndex);
     }
 
     function renderAllCharts() {
