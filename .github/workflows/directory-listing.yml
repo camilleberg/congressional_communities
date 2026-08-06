@@ -30,14 +30,11 @@ jobs:
 
       - name: Prepare site folder
         run: |
-          # create a clean public folder and copy only the files that should be published
           rm -rf public
           mkdir public
-          # copy generated HTML and assets into public; adjust pattern as needed
-          # if your generated site files are at repo root, copy the ones you need:
-          cp index.html public/ 2>/dev/null || true
-          cp -r _site/* public/ 2>/dev/null || true
-          cp -r public_assets/* public/ 2>/dev/null || true
+          # copy repo files (exclude .git and the public target)
+          rsync -av --delete --exclude='.git' --exclude='public' ./ public/
+          # if you generate site in a different folder adjust the source path instead of ./
 
       - name: Inspect site contents
         run: |
@@ -52,6 +49,8 @@ jobs:
 
   deploy:
     needs: build
+    
+
 
     environment:
       name: github-pages
@@ -60,7 +59,9 @@ jobs:
     runs-on: ubuntu-latest
 
     # increase total job timeout so we allow more time for Pages to finish the deployment
-    timeout-minutes: 30
+    timeout-minutes: 60
+    
+    
 
     steps:
       - name: Deploy to GitHub Pages
