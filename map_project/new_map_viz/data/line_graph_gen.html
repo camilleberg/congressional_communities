@@ -181,7 +181,7 @@
                     color:${color};
                     font-weight:bold;
                 ">
-                Total Population
+                Community vs <br>Congressional District
                 </span>
 
                 <div
@@ -279,7 +279,7 @@
       document.getElementById(`stat_value_${ageIndex}`).textContent =
         statValue.toLocaleString();
 
-      const statValue2 = (diff_cc_state.toFixed(2) + '%');
+      const statValue2 = (diff_cc_cd.toFixed(2) + '%');
       document.getElementById(`stat2_value_${ageIndex}`).textContent =
         statValue2.toLocaleString();
 
