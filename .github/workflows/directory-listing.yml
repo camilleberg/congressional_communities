@@ -32,9 +32,9 @@ jobs:
         run: |
           rm -rf public
           mkdir public
-          # copy repo files (exclude .git and the public target)
+          # copy repo files into public reliably, excluding .git and the public folder itself
+          # adjust the source path if your generated site files are in a different folder
           rsync -av --delete --exclude='.git' --exclude='public' ./ public/
-          # if you generate site in a different folder adjust the source path instead of ./
 
       - name: Inspect site contents
         run: |
@@ -49,8 +49,6 @@ jobs:
 
   deploy:
     needs: build
-    
-
 
     environment:
       name: github-pages
@@ -60,10 +58,51 @@ jobs:
 
     # increase total job timeout so we allow more time for Pages to finish the deployment
     timeout-minutes: 60
-    
-    
 
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Install jq
+        run: sudo apt-get update && sudo apt-get install -y jq
+
+      - name: Wait for Pages deployment to complete
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          OWNER: ${{ github.repository_owner }}
+          REPO: ${{ github.event.repository.name }}
+        run: |
+          owner="$OWNER"
+          repo="$REPO"
+          # total timeout in seconds (50 minutes)
+          timeout=$((60*50))
+          interval=15
+          elapsed=0
+          echo "Polling Pages deployment status for $owner/$repo (timeout ${timeout}s)..."
+          resp='{}'
+          while [ $elapsed -lt $timeout ]; do
+            resp=$(curl -s \
+              -H "Authorization: Bearer $GITHUB_TOKEN" \
+              -H "Accept: application/vnd.github+json" \
+              "https://api.github.com/repos/$owner/$repo/pages/deployment/latest")
+            # print a short summary for visibility
+            status=$(echo "$resp" | jq -r '.status // empty')
+            echo "Pages status: $status"
+            if [ "$status" = "built" ] || [ "$status" = "published" ] || [ "$status" = "success" ]; then
+              echo "Pages deployed successfully"
+              echo "$resp" | jq .
+              exit 0
+            fi
+            # if API reports an error or message, print it for debugging
+            if echo "$resp" | jq -e '.message' >/dev/null 2>&1; then
+              echo "API message:"
+              echo "$resp" | jq -r '.message'
+            fi
+            echo "Sleeping $interval seconds..."
+            sleep $interval
+            elapsed=$((elapsed + interval))
+          done
+          echo "Timed out waiting for Pages deployment after $elapsed seconds"
+          echo "$resp" | jq .
+          exit 1
