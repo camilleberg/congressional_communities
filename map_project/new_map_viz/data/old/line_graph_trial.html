@@ -247,16 +247,6 @@
         });
         }
 
-    // for making automaticbounds 
-    function floorToDecimals(val, decimals) {
-      const factor = Math.pow(10, decimals);
-      return Math.floor(val * factor) / factor;
-    }
-
-    function ceilToDecimals(val, decimals) {
-      const factor = Math.pow(10, decimals);
-      return Math.ceil(val * factor) / factor;
-    }
 
     // Largest-remainder rounding: turns a list of raw counts into
     // integer icon counts (out of totalIcons) that sum exactly to totalIcons.
@@ -351,27 +341,25 @@
         statValue2.toLocaleString();
 
       const intervals = [];
-      for (let i = 0; i <= 20; i++) intervals.push(Math.round((i / 20) * 100) / 100);
-
-      
+      for (let i = 0; i <= 10; i++) intervals.push(Math.round((i / 10) * 100) / 100);
 
       const traces = [
-        { // legend
+        {
           x: [null], y: [null], type: 'scatter', mode: 'markers',
           marker: { symbol: 'diamond', size: 20, color: greyscale_color[0], line: { color: 'white', width: 2 }},
           name: 'State', showlegend: ageIndex === 0
         },
-        { // legend
+        {
           x: [null], y: [null], type: 'scatter', mode: 'markers',
           marker: { symbol: 'circle', size: 20, color: greyscale_color[0], line: { color: 'white', width: 2 }},
           name: 'Congressional District', showlegend: ageIndex === 0
         },
-        { // legend
+        {
           x: [null], y: [null], type: 'scatter', mode: 'markers',
           marker: { symbol: 'circle', size: 20, color: greyscale_color[1], line: { color: 'white', width: 2 }},
           name: 'Congressional Community', showlegend: ageIndex === 0
         },
-        { // tick marrks
+        {
           x: intervals,
           y: intervals.map(() => 1),
           mode: 'lines+markers',
@@ -403,8 +391,8 @@
         }
       ];
 
-      const xMin = floorToDecimals(Math.min(xCc, xCd, xState), 1);
-      const xMax = ceilToDecimals(Math.max(xCc, xCd, xState), 1);
+      const xMin = floorToDecimals(Math.min(xCc, xCd, xState), 1) - 0.01;
+      const xMax = ceilToDecimals(Math.max(xCc, xCd, xState), 2) + 0.01;
 
       const layout = {
         title: { text: 'Group: ' + age_bracket_names[ageIndex], font: { size: 13, color: 'darkgrey' }, x: 0.01, xanchor: 'left', yanchor: 'top', y: 0.7 },
