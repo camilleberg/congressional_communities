@@ -1,6 +1,6 @@
 
 import plotly.graph_objects as go
-from graph_programs.custom_colors import custom_continuous
+from map_project.old.map_app.old_map.graph_programs.custom_colors import custom_continuous
 
 def make_female_percentage_graph():
 
