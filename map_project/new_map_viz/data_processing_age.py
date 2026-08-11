@@ -1,6 +1,8 @@
 import pandas as pd
 import re
 import math 
+import json 
+
 
 
 def load_data():
@@ -99,7 +101,12 @@ def save_age_data(df_age, age_bracket_cols, ccn20_dict, df_cd_graph, df_state_gr
         
 if __name__ == '__main__':
     df = load_data()
+    print("Data loaded successfully.")
     df_age, age_bracket_cols = clean_data_age(df)
+    print("Data cleaned successfully.")
     ccn20_dict = create_dict(df)
+    print("Dictionary created successfully.")
     df_state_graph, df_cd_graph = group_data(df_age, age_bracket_cols)
+    print("Data grouped successfully.")
     save_age_data(df_age, age_bracket_cols, ccn20_dict, df_cd_graph, df_state_graph)
+    print("Age data saved successfully.")
