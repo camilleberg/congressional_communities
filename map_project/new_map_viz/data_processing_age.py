@@ -3,11 +3,11 @@ import re
 import math 
 import json 
 
-
-
-def load_data():
+def load_data(file_location):
     # function to load data
-    df = pd.read_excel('../../data/cc20_us_02052025_website.xlsx')
+    
+    df = pd.read_excel(file_location)
+    print("Data loaded successfully.")
     return df
 
 
@@ -15,6 +15,8 @@ def clean_data_age(df):
     # function that groups age data into three groups: under 18, 18-65, and over 65
     # returns a new dataframe with the three age groups and a list of the new columns
     
+    # renaming columns for easier access
+    df.rename(columns={'Dist Code': 'DC', 'State Postal Abbreviation': 'State'}, inplace=True)
     df = df.copy()  # copying for safety 
     
     # assigning groups 
@@ -29,9 +31,11 @@ def clean_data_age(df):
     # getting the new columns
     age_bracket_cols= [col for col in df_new.columns if re.search(r'^ageGroup', col)]
     
+    
     # creating a new dataframe with the relevant columns and only the rleevant columns
     df_age = df_new[['CCN20', 'DC', 'State', 'Total Population']].join(df_new[age_bracket_cols])
-
+    
+    print("Data cleaned successfully.")
     return df_age, age_bracket_cols
 
 def create_dict(df):
@@ -62,6 +66,7 @@ def group_data(df_age, age_bracket_cols):
     df_state_graph = group_function(df_age, 'State', age_bracket_cols)
     df_cd_graph = group_function(df_age, 'DC', age_bracket_cols)
 
+    print("Data grouped successfully.")
     return df_state_graph, df_cd_graph
 
 def prep_dict(df_age, cc_number): 
@@ -70,18 +75,19 @@ def prep_dict(df_age, cc_number):
     new_df = df_age.loc[df_age['CCN20'] == cc_number].drop(columns=['CCN20','DC', 'State']).to_dict(orient = 'records')
     return new_df[0]
 
-def exclude_key(d, key):
-    d = d.copy()
-    d.pop(key, None)
-    return d
-    
 
 # function to save age data for each congressional community, congressional district, and state
-def save_age_data(df_age, age_bracket_cols, ccn20_dict, df_cd_graph, df_state_graph): 
+def save_age_data(file_path, df_age, age_bracket_cols, ccn20_dict, df_cd_graph, df_state_graph): 
+    # function to save age data for each congressional community, congressional district, and state
+    
+    
+    # setting the index to the congressional community number for easier access
     df_age_indexed = df_age.set_index('CCN20')
 
+    # initakizing a dictionary to hold the data for each congressional community
     age_cc_data = {}
 
+    # looping through each congressional community number and saving the data to the dictionary
     for ccn20_number in set(df_age.CCN20):
         ccn20_record = ccn20_dict[ccn20_number][0]
         cc_row = df_age_indexed.loc[ccn20_number]
@@ -96,17 +102,18 @@ def save_age_data(df_age, age_bracket_cols, ccn20_dict, df_cd_graph, df_state_gr
             "state_total": int(df_state_graph[ccn20_record['State']]['Total Population']),
         }
 
-    with open('./data/age_cc_data.json', 'w') as f:
+    # saving the dictionary to a json file
+    with open(file_path, 'w') as f:
         json.dump(age_cc_data, f)
         
+    print("Age data saved successfully to {}".format(file_path))
+        
 if __name__ == '__main__':
-    df = load_data()
-    print("Data loaded successfully.")
+    data_file_path = './congressional_communities/data/cc20_us_02052025_website.xlsx'
+    save_file_path = './congressional_communities/map_project/new_map_viz/data/age_cc_data.json'
+    
+    df = load_data(data_file_path)
     df_age, age_bracket_cols = clean_data_age(df)
-    print("Data cleaned successfully.")
     ccn20_dict = create_dict(df)
-    print("Dictionary created successfully.")
     df_state_graph, df_cd_graph = group_data(df_age, age_bracket_cols)
-    print("Data grouped successfully.")
-    save_age_data(df_age, age_bracket_cols, ccn20_dict, df_cd_graph, df_state_graph)
-    print("Age data saved successfully.")
+    save_age_data(save_file_path, df_age, age_bracket_cols, ccn20_dict, df_cd_graph, df_state_graph)
