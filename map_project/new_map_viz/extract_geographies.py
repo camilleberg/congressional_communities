@@ -116,7 +116,7 @@ def split_json_file(file_path, max_size_mb=100):
 def save_split_json_files(subfiles):
     subfile_names = []
     for i, sub_dict in enumerate(subfiles):
-        subfile_name = f'./map_project/new_map_viz/data/ccn20_geo_dict_part_{i+1}.json'
+        subfile_name = f'./map_project/new_map_viz/data/ccn20_geo_dict_subfiles/ccn20_geo_dict_part_{i+1}.json'
         with open(subfile_name, 'w') as f:
             json.dump(sub_dict, f)
         subfile_names.append(subfile_name)
