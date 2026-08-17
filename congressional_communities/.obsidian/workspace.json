@@ -39,14 +39,12 @@
             "id": "860222a29ff61d21",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "pdf",
               "state": {
-                "file": "Resources/Mosaic.md",
-                "mode": "source",
-                "source": false
+                "file": "Resources/📊 Visualizing Data with Pyecharts_ A Complete Tutorial with Real-World Examples - Freedium.pdf"
               },
-              "icon": "lucide-file",
-              "title": "Mosaic"
+              "icon": "lucide-file-text",
+              "title": "📊 Visualizing Data with Pyecharts_ A Complete Tutorial with Real-World Examples - Freedium"
             }
           },
           {
@@ -258,8 +256,8 @@
   },
   "active": "860222a29ff61d21",
   "lastOpenFiles": [
-    "Resources/📊 Visualizing Data with Pyecharts_ A Complete Tutorial with Real-World Examples - Freedium.pdf",
     "Resources/Mosaic.md",
+    "Resources/📊 Visualizing Data with Pyecharts_ A Complete Tutorial with Real-World Examples - Freedium.pdf",
     "Meeting Notes.md",
     "arcgis map/arcgis pro/Resources.md",
     "Screenshot 2026-07-19 at 13.55.02.png",
