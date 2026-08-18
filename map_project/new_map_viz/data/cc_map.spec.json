@@ -1,0 +1,36 @@
+{
+  "data": {
+    "_data0": {
+      "type": "spatial",
+      "file": "data/us-counties-10m.json",
+      "layer": "states"
+    },
+    "_data1": {
+      "type": "spatial",
+      "file": "data/ccn20_geo_topo.json",
+      "layer": "data"
+    }
+  },
+  "plot": [
+    {
+      "mark": "geo",
+      "data": {
+        "from": "_data0"
+      },
+      "stroke": "currentColor",
+      "strokeWidth": 1
+    },
+    {
+      "mark": "geo",
+      "data": {
+        "from": "_data1"
+      },
+      "stroke": "currentColor",
+      "strokeWidth": 1,
+      "tip": true,
+      "title": "CCN20"
+    }
+  ],
+  "margin": 0,
+  "projectionType": "albers"
+}

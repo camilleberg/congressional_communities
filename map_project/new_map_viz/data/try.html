@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><title>Congressional Community Map</title></head>
+<body>
+  <div id="plot">Loading…</div>
+  <script type="module">
+    const plotEl = document.getElementById("plot");
+
+    try {
+      const { parseSpec, astToDOM } = await import("https://cdn.jsdelivr.net/npm/@uwdata/mosaic-spec/+esm");
+      const vg = await import("https://cdn.jsdelivr.net/npm/@uwdata/vgplot/+esm");
+
+      vg.coordinator().databaseConnector(await vg.wasmConnector());
+
+      const res = await fetch("cc_map.spec.json");
+      if (!res.ok) {
+        throw new Error(`Failed to fetch spec: ${res.status} ${res.statusText} (${res.url})`);
+      }
+      const spec = await res.json();
+
+      const ast = parseSpec(spec);
+      const { element } = await astToDOM(ast, { baseURL: "." });
+
+      plotEl.replaceChildren(element);
+    } catch (err) {
+      console.error("Mosaic render failed:", err);
+      plotEl.textContent = `Error: ${err.message}`;
+      plotEl.style.color = "red";
+      plotEl.style.fontFamily = "monospace";
+    }
+  </script>
+</body>
+</html>
